@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymFlow Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <nav>
+        <div class="logo">GymFlow</div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+            <a href="#" onclick="showPage('users')">Users</a>
+            <a href="#" onclick="showPage('add-user')">Add User</a>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+
+
+    <div id="dashboard" class="page active">
+        <div class="dashboard">
+            <div class="card">
+                <h3>Total Users</h3>
+                <p id="totalUsers">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Admins</h3>
+                <p id="totalAdmins">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Active Users</h3>
+                <p id="activeUsers">0</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="users" class="page">
+        <div class="users-section">
+
+            <h2>Users</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div id="add-user" class="page">
+        <div class="form-container">
+
+            <h2>Add / Edit User</h2>
+
+            <form id="userForm">
+
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="text" id="surname" placeholder="Surname" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password">
+
+                <select id="role">
+                    <option value="użytkownik">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <button type="submit">Save User</button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+
+</body>
+
+</html>
