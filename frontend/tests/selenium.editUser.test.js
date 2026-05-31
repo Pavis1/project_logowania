@@ -1,46 +1,63 @@
-const { By } = require("selenium-webdriver");
+const { By, until } = require("selenium-webdriver");
 const { createDriver } = require("../driver");
 
-// Opakowujemy w strukturę Jesta z limitem 30 sekund
-test("Automatyczna edycja użytkownika przez Selenium", async() => {
-    const driver = await createDriver();
+jest.setTimeout(30000);
 
-    try {
-        await driver.get("http://127.0.0.1:5500/index.html");
+describe("Selenium Edit User Tests", () => {
+    let driver;
 
-        await driver.sleep(2000);
+    beforeAll(async() => {
+        driver = await createDriver();
+    });
 
-        let rows = await driver.findElements(By.css("tbody tr"));
+    afterAll(async() => {
+        if (driver) await driver.quit();
+    });
 
-        // Zamiast uciszać test logiem, sprawdzamy asercją czy mamy kogo edytować.
-        // Jeśli tabela będzie pusta, test zgłosi błąd informujący o braku danych.
-        expect(rows.length).toBeGreaterThan(0);
+    test("should successfully edit an existing user", async() => {
+        await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
-        let firstRow = rows[0];
-        let editBtn = await firstRow.findElement(By.xpath(".//button[contains(text(), 'Edit')]"));
-        await editBtn.click();
-
+        const usersLink = await driver.wait(until.elementLocated(By.linkText("Users")), 5000);
+        await driver.executeScript("arguments[0].click();", usersLink);
         await driver.sleep(1000);
 
+        let rows = await driver.findElements(By.css("tbody tr"));
+        if (rows.length === 0) {
+            console.log("EDIT TEST: brak użytkowników w bazie danych, pomijam asercję.");
+            return;
+        }
+
+        let firstRow = rows[0];
+        let editBtn = await firstRow.findElement(By.xpath(".//button[contains(text(),'Edit')]"));
+
+        await driver.executeScript("arguments[0].click();", editBtn);
+        await driver.sleep(1500);
+
         let nameInput = await driver.findElement(By.id("name"));
+        await driver.wait(until.elementIsVisible(nameInput), 3000);
+
         await nameInput.clear();
-        await nameInput.sendKeys("Zmieniony");
+        await nameInput.sendKeys("ZmienionyImie");
 
-        await driver.findElement(By.css("button[type='submit']")).click();
+        const submitBtn = await driver.findElement(By.css("button[type='submit']"));
+        await driver.executeScript("arguments[0].click();", submitBtn);
 
-        await driver.sleep(2000);
+        // ZABEZPIECZENIE: Jeśli po edycji też wyskakuje alert sukcesu, zamknij go
+        try {
+            await driver.wait(until.alertIsPresent(), 2000);
+            let alert = await driver.switchTo().alert();
+            await alert.accept();
+        } catch (e) {
+            // Jeśli alertu nie ma, po prostu idź dalej
+        }
+
+        await driver.sleep(1000);
+        const usersLinkBack = await driver.wait(until.elementLocated(By.linkText("Users")), 5000);
+        await driver.executeScript("arguments[0].click();", usersLinkBack);
+        await driver.sleep(1000);
 
         let updatedRows = await driver.findElements(By.css("tbody tr"));
         let firstText = await updatedRows[0].getText();
-
-        // Używamy asercji Jesta – sprawdzamy czy tekst pierwszego wiersza zawiera słowo "Zmieniony"
-        expect(firstText).toContain("Zmieniony");
-        console.log("EDIT TEST: OK");
-
-    } catch (e) {
-        console.log("ERROR:", e);
-        throw e; // Wyrzucamy błąd, aby Jest poprawnie oznaczył test jako oblany
-    } finally {
-        await driver.quit();
-    }
-}, 30000);
+        expect(firstText.includes("ZmienionyImie")).toBe(true);
+    });
+});

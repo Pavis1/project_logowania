@@ -6,6 +6,8 @@ let editId = null;
 
 function authFetch(url, options) {
 
+
+
     if (!options) {
         options = {};
     }

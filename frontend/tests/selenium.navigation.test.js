@@ -1,34 +1,38 @@
-const { By } = require("selenium-webdriver");
+const { By, until } = require("selenium-webdriver");
 const { createDriver } = require("../driver");
 
-// Opakowujemy w strukturę Jesta z limitem 30 sekund
-test("Automatyczna nawigacja po menu przez Selenium", async() => {
-    const driver = await createDriver();
+jest.setTimeout(30000);
 
-    try {
-        await driver.get("http://127.0.0.1:5500/index.html");
+describe("Selenium Navigation Tests", () => {
+    let driver;
 
-        // Kliknięcie w menu "Users" i sprawdzenie czy klasa zawiera "active"
+    beforeAll(async() => {
+        driver = await createDriver();
+    });
+
+    afterAll(async() => {
+        if (driver) await driver.quit();
+    });
+
+    test("should correctly navigate between views", async() => {
+        await driver.get("http://127.0.0.1:5500/frontend/index.html");
+
+        // Kliknięcie w link Users
         await driver.findElement(By.linkText("Users")).click();
+        await driver.sleep(500); // <-- NOWOŚĆ: czas dla JS na zmianę widoku
         let usersPage = await driver.findElement(By.id("users")).getAttribute("class");
-        expect(usersPage).toContain("active");
+        expect(usersPage.includes("active")).toBe(true);
 
-        // Kliknięcie w menu "Add User" i sprawdzenie czy klasa zawiera "active"
+        // Kliknięcie w link Add User
         await driver.findElement(By.linkText("Add User")).click();
+        await driver.sleep(500); // <-- NOWOŚĆ
         let addPage = await driver.findElement(By.id("add-user")).getAttribute("class");
-        expect(addPage).toContain("active");
+        expect(addPage.includes("active")).toBe(true);
 
-        // Kliknięcie w menu "Dashboard" i sprawdzenie czy klasa zawiera "active"
+        // Kliknięcie w link Dashboard
         await driver.findElement(By.linkText("Dashboard")).click();
+        await driver.sleep(500); // <-- NOWOŚĆ
         let dashPage = await driver.findElement(By.id("dashboard")).getAttribute("class");
-        expect(dashPage).toContain("active");
-
-        console.log("NAVIGATION TEST: OK");
-
-    } catch (e) {
-        console.log("ERROR:", e);
-        throw e; // Wyrzucamy błąd, aby Jest poprawnie oznaczył test jako oblany
-    } finally {
-        await driver.quit();
-    }
-}, 30000);
+        expect(dashPage.includes("active")).toBe(true);
+    });
+});

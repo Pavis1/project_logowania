@@ -1,13 +1,23 @@
 const { By, until } = require("selenium-webdriver");
 const { createDriver } = require("../driver");
 
-// Opakowujemy w strukturę Jesta z limitem 30 sekund
-test("Automatyczne sprawdzanie panelu dashboard przez Selenium", async() => {
-    const driver = await createDriver();
+jest.setTimeout(30000);
 
-    try {
-        await driver.get("http://127.0.0.1:5500/index.html");
+describe("Selenium Dashboard Tests", () => {
+    let driver;
 
+    beforeAll(async() => {
+        driver = await createDriver();
+    });
+
+    afterAll(async() => {
+        if (driver) await driver.quit();
+    });
+
+    test("should load dashboard counters correctly", async() => {
+        await driver.get("http://127.0.0.1:5500/frontend/index.html");
+
+        // Czekamy aż liczniki załadują dane z API zamiast 0
         await driver.wait(until.elementLocated(By.id("totalUsers")), 5000);
 
         let totalText = await driver.findElement(By.id("totalUsers")).getText();
@@ -16,19 +26,7 @@ test("Automatyczne sprawdzanie panelu dashboard przez Selenium", async() => {
         let total = parseInt(totalText);
         let admins = parseInt(adminsText);
 
-        console.log("TOTAL USERS:", total);
-        console.log("ADMINS:", admins);
-
-        // Zamiast zwykłego 'if', używamy asercji Jesta. 
-        // Sprawdzamy, czy pobrane wartości są poprawne i czy system poprawnie je przekonwertował na liczby.
-        expect(total).not.toBeNaN();
-        expect(admins).not.toBeNaN();
-        console.log("DASHBOARD TEST: OK");
-
-    } catch (e) {
-        console.log("ERROR:", e);
-        throw e; // Wyrzucamy błąd, aby Jest wiedział, że test oblał
-    } finally {
-        await driver.quit();
-    }
-}, 30000);
+        expect(isNaN(total)).toBe(false);
+        expect(isNaN(admins)).toBe(false);
+    });
+});

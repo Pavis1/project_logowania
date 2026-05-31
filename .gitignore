@@ -220,3 +220,7 @@ __marimo__/
 # Lokalna baza danych SQLite
 *.db
 *.sqlite3
+.env
+
+# Foldery z zależnościami
+node_modules/
