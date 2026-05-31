@@ -59,9 +59,9 @@ Projekt zawiera zestaw 15 testów automatycznych (jednostkowych oraz integracyjn
    ```bash
    npm install
    ```
-4. Uruchom testy automatyczne:
+4. Uruchom testy automatyczne (-- --runInBand uruchamia testy jeden po drugim):
    ```bash
-   npm test
+   npm test -- --runInBand
    ```
 
 ### Zalecane narzędzia opcjonalne

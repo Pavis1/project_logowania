@@ -17,7 +17,6 @@ describe("Selenium Dashboard Tests", () => {
     test("should load dashboard counters correctly", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
-        // Czekamy aż liczniki załadują dane z API zamiast 0
         await driver.wait(until.elementLocated(By.id("totalUsers")), 5000);
 
         let totalText = await driver.findElement(By.id("totalUsers")).getText();
