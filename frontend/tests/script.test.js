@@ -39,7 +39,7 @@ describe("UI Navigation", () => {
 });
 
 
-// ==================== DASHBOARD ====================
+
 
 describe("Dashboard logic", () => {
 
@@ -58,7 +58,7 @@ describe("Dashboard logic", () => {
 });
 
 
-// ==================== FORM ====================
+
 
 describe("Form logic", () => {
 
@@ -82,7 +82,7 @@ describe("Form logic", () => {
 });
 
 
-// ==================== AUTH FETCH ====================
+
 
 describe("authFetch", () => {
 
