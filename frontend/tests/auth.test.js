@@ -17,7 +17,7 @@ describe("AUTH logic", () => {
         }
     })
 
-    test("should attach token to request headers", async() => {
+    test("czy token dodaje się do nagłówków requestu", async() => {
 
         let token = "abc123"
 
@@ -43,7 +43,7 @@ describe("AUTH logic", () => {
     })
 
 
-    test("should store token after login", () => {
+    test("czy zapisuje token po logowaniu", () => {
 
         localStorage.setItem("token", "jwt-token-123")
 
@@ -51,7 +51,7 @@ describe("AUTH logic", () => {
     })
 
 
-    test("should remove token on logout", () => {
+    test("czy usuwa token po wylogowaniu", () => {
 
         localStorage.setItem("token", "abc")
         localStorage.removeItem("token")
