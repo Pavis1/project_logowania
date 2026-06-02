@@ -1,6 +1,6 @@
 const { JSDOM } = require("jsdom");
 
-describe("UI Navigation", () => {
+describe("Nawigacja UI", () => {
 
     let document;
 
@@ -30,7 +30,7 @@ describe("UI Navigation", () => {
         document.getElementById(id).classList.add("active");
     }
 
-    test("should switch page correctly", () => {
+    test("powinno poprawnie zmieniać stronę", () => {
         showPage("users");
 
         expect(document.getElementById("users").classList.contains("active")).toBe(true);
@@ -41,9 +41,9 @@ describe("UI Navigation", () => {
 
 
 
-describe("Dashboard logic", () => {
+describe("Logika dashboardu", () => {
 
-    test("should count admins correctly", () => {
+    test("powinno poprawnie liczyć administratorów", () => {
 
         let users = [
             { role: "admin" },
@@ -60,9 +60,9 @@ describe("Dashboard logic", () => {
 
 
 
-describe("Form logic", () => {
+describe("Logika formularza", () => {
 
-    test("should create user object correctly", () => {
+    test("powinno poprawnie tworzyć obiekt użytkownika", () => {
 
         function buildUser() {
             return {
@@ -84,17 +84,17 @@ describe("Form logic", () => {
 
 
 
-describe("authFetch", () => {
+describe("Autoryzacja fetch", () => {
 
     beforeEach(() => {
         global.fetch = jest.fn();
     });
 
-    test("should attach token to request", async() => {
+    test("powinno dodawać token do nagłówków zapytania", async () => {
 
         global.fetch.mockResolvedValue({
             status: 200,
-            json: async() => ({ ok: true })
+            json: async () => ({ ok: true })
         });
 
         let token = "abc123";
