@@ -27,10 +27,7 @@ describe("AUTH logic", () => {
 
             headers["Authorization"] = "Bearer " + token
 
-            return fetch(url, {
-                ...options,
-                headers
-            })
+            return fetch(url, {  ...options,   headers })
         }
 
         global.fetch.mockResolvedValue({
