@@ -3,7 +3,7 @@ const { createDriver } = require("../driver");
 
 jest.setTimeout(30000);
 
-describe("Selenium Edit User Tests", () => {
+describe("Selenium Edit User Test", () => {
     let driver;
 
     beforeAll(async() => {
@@ -14,7 +14,7 @@ describe("Selenium Edit User Tests", () => {
         if (driver) await driver.quit();
     });
 
-    test("should successfully edit an existing user", async() => {
+    test("Powinien edytowac uzytkownika", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
         const usersLink = await driver.wait(until.elementLocated(By.linkText("Users")), 5000);
