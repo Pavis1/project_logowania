@@ -3,7 +3,7 @@ const { createDriver } = require("../driver");
 
 jest.setTimeout(30000);
 
-describe("Selenium Dashboard Tests", () => {
+describe("Selenium Dashboard Test", () => {
     let driver;
 
     beforeAll(async() => {
@@ -14,7 +14,7 @@ describe("Selenium Dashboard Tests", () => {
         if (driver) await driver.quit();
     });
 
-    test("should load dashboard counters correctly", async() => {
+    test("Powinien pokazywac dashboard poprawnie", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
         await driver.wait(until.elementLocated(By.id("totalUsers")), 5000);
