@@ -100,10 +100,7 @@ describe("Autoryzacja fetch", () => {
         let token = "abc123";
 
         async function authFetch(url, options = {}) {
-            options.headers = {
-                ...options.headers,
-                Authorization: "Bearer " + token
-            };
+            options.headers = {     ...options.headers,  Authorization: "Bearer " + token };
 
             return fetch(url, options);
         }
