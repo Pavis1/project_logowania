@@ -3,7 +3,7 @@ const { createDriver } = require("../driver");
 
 jest.setTimeout(30000);
 
-describe("Selenium Delete User Tests", () => {
+describe("Selenium Delete User Test", () => {
     let driver;
 
     beforeAll(async() => {
@@ -14,7 +14,7 @@ describe("Selenium Delete User Tests", () => {
         if (driver) await driver.quit();
     });
 
-    test("should successfully delete a user", async() => {
+    test("Powinno usnac uzytkownika", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
   
