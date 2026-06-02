@@ -14,7 +14,7 @@ describe("Selenium Navigation Tests", () => {
         if (driver) await driver.quit();
     });
 
-    test("should correctly navigate between views", async() => {
+    test("Powinno poprawnie nawigowac miedzy stronami", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
 
