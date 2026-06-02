@@ -42,13 +42,13 @@ describe("Selenium Edit User Tests", () => {
         const submitBtn = await driver.findElement(By.css("button[type='submit']"));
         await driver.executeScript("arguments[0].click();", submitBtn);
 
-        // ZABEZPIECZENIE: Jeśli po edycji też wyskakuje alert sukcesu, zamknij go
+
         try {
             await driver.wait(until.alertIsPresent(), 2000);
             let alert = await driver.switchTo().alert();
             await alert.accept();
         } catch (e) {
-            // Jeśli alertu nie ma, po prostu idź dalej
+    
         }
 
         await driver.sleep(1000);
