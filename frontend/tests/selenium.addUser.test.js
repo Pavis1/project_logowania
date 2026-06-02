@@ -3,7 +3,7 @@ const { createDriver } = require("../driver");
 
 jest.setTimeout(30000);
 
-describe("Selenium Add User Tests", () => {
+describe("Test dodawania uzytkownikow", () => {
     let driver;
 
     beforeAll(async() => {
@@ -14,7 +14,7 @@ describe("Selenium Add User Tests", () => {
         if (driver) await driver.quit();
     });
 
-    test("should successfully add a new user", async() => {
+    test("Powinnod doac nowego uzytkownika", async() => {
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
 
        
