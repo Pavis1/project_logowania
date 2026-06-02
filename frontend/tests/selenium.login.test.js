@@ -15,7 +15,7 @@ describe("LOGIN TEST", () => {
     });
 
     test("open page", async() => {
-        // Wchodzimy prosto na stronę główną
+
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
         await driver.wait(until.titleContains("GymFlow"), 5000);
         let title = await driver.getTitle();
