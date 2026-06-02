@@ -1,10 +1,8 @@
-/**
- * @jest-environment jsdom
- */
+
 
 describe("UI tests", () => {
 
-    // Przed każdym testem czystszy sposób na wstrzyknięcie HTML bezpośrednio do wbudowanego body
+
     beforeEach(() => {
         document.body.innerHTML = `
             <div id="dashboard" class="page active"></div>
@@ -17,7 +15,7 @@ describe("UI tests", () => {
         `;
     });
 
-    // Kod funkcji showPage żywcem przeniesiony z Waszej aplikacji do przetestowania
+  
     function showPage(id) {
         let pages = document.querySelectorAll(".page");
         pages.forEach(p => p.classList.remove("active"));
