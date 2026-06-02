@@ -1,6 +1,6 @@
 
 
-describe("UI tests", () => {
+describe("UI test", () => {
 
 
     beforeEach(() => {
@@ -22,14 +22,14 @@ describe("UI tests", () => {
         document.getElementById(id).classList.add("active");
     }
 
-    test("switch page", () => {
+    test("zmiana stron", () => {
         showPage("users");
 
         expect(document.getElementById("users").classList.contains("active")).toBe(true);
         expect(document.getElementById("dashboard").classList.contains("active")).toBe(false);
     });
 
-    test("dashboard counters", () => {
+    test("dashboard licznik rol", () => {
         let users = [
             { role: "admin" },
             { role: "user" },
