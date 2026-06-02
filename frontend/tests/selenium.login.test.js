@@ -14,7 +14,7 @@ describe("LOGIN TEST", () => {
         if (driver) await driver.quit();
     });
 
-    test("open page", async() => {
+    test("otworz strone", async() => {
 
         await driver.get("http://127.0.0.1:5500/frontend/index.html");
         await driver.wait(until.titleContains("GymFlow"), 5000);
